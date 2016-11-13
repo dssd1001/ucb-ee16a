@@ -1,0 +1,208 @@
+%%%%%%%%%%%%%%
+% Homework _ %
+%%%%%%%%%%%%%%
+
+\documentclass[letter]{article}
+
+\usepackage{lipsum}
+\usepackage[pdftex]{graphicx}
+\usepackage[margin=1.5in]{geometry}
+\usepackage[english]{babel}
+\usepackage{listings}
+\usepackage{amsthm}
+\usepackage{amssymb}
+\usepackage{framed}
+\usepackage{amsmath, mathtools}
+\usepackage{titling}
+\usepackage{fancyhdr}
+\usepackage{tikz}
+\usepackage[american]{circuitikz}
+
+\pagestyle{fancy}
+
+\newtheorem{theorem}{Theorem}[section]
+
+\newenvironment{menumerate}{\edef\backupindent{\the\parindent}
+  \enumerate\setlength{\parindent}{\backupindent}}
+  {\endenumerate}
+
+\lstset{language=python}
+
+%%%%%%%%%%%%%%
+%  Doc Info  %
+%%%%%%%%%%%%%%
+\newcommand{\hwn}{?}
+\newcommand{\class}{EE 16A}
+
+\title{\class: Homework \hwn}
+\author{David J. Lee\\3031796951\\dssd1001@berkeley.edu}
+
+\fancyhead[L]{\class}
+\fancyhead[C]{Homework \hwn}
+\fancyhead[R]{\thepage}
+\fancyfoot{}
+
+%%%%%%%%%%%%%%
+
+\begin{document}
+\maketitle
+\thispagestyle{empty}
+
+\begin{menumerate}
+    \item \textbf{Worked With...}
+
+    \newpage
+    \item \textbf{Problem Name}
+    \begin{menumerate}
+        \item \emph{Part Description}
+        Start Solution.
+        \item
+        \item
+        \item
+    \end{menumerate}
+
+    \item \textbf{Python}
+    \begin{lstlisting}
+class Link:
+    empty = ()
+    def __init__(self, first, rest=empty):
+        self.first = first
+        self.rest = rest
+    def __getitem__(self, i):
+        if i == 0:
+            return self.first
+        else:
+            return self.rest[i-1]
+    def __repr__(self):
+        if self.rest:
+            rest_str = ', ' + repr(self.rest)
+        else:
+            rest_str = ''
+        return 'Link({0}{1})'.format(self.first, rest_str)
+    \end{lstlisting}
+
+    \newpage
+    \item \textbf{Example}
+    \begin{menumerate}
+        \item $P_{device} = IV = 10mA \cdot 1.2 V = 12 mW.$
+          Then determining currents using super position we get that,
+          \begin{equation*}
+            \begin{aligned}
+                I_{out} &= I_{device} + I_2 \\
+                &= 10mA + \frac{V_{out}}{R_{eq}} \\
+                &= 10mA + \frac{1.2V}{1 \Omega + 2 \Omega} \\
+                &= 10mA - .4A\\
+                P &= 0.41 V_{sc}.
+            \end{aligned}
+          \end{equation*}
+          This gives a final efficiency of $0.0294/V_{sc}.$
+
+        \item \emph{Solve for all node voltages using nodal analysis.}
+
+        Redraw the circuit with an added node 3:
+        \begin{center}
+            \includegraphics[scale=0.2]{exampledrawing.png}
+        \end{center}
+        Notice that $V_2 = V_x$ since $V_2$ is connected to the ground through the $60\Omega$ resistor. Keeping this in mind, we proceed with nodal analysis on each node (1,2,3):
+        \\\\For $V_1$, we have:
+        \begin{equation*}
+            \frac{1}{10\Omega}(V_1 - 1V) - 10V_2 + \frac{1}{20\Omega}(V_1 - 0) + \frac{1}{50\Omega}(V_1 - 10V - v_3) = 0
+        \end{equation*}
+        For $V_2$, we have:
+        \begin{equation*}
+            \frac{1}{60\Omega}(V_2 - 0) + \frac{1}{55\Omega}(V_2 - V_3) = 0
+        \end{equation*}
+        For $V_3$, we have:
+        \begin{equation*}
+            \frac{1}{50\Omega}(V_3 + 10V - V_1) + \frac{1}{55\Omega}(V_3 - V_2) = 0
+        \end{equation*}
+        With some rearranging into the matrix-vector form ($Av = b$, where $v = \begin{bmatrix}
+                V_1\\ V_2\\ V_3
+            \end{bmatrix}$) then solving through iPython(code in the back), we get
+        \begin{align}
+            \Aboxed{V_1 &= 10.402V} \\
+            \Aboxed{V_2 &= 0.146V}
+        \end{align}
+
+        \item \emph{What is $\vec{f}$ in this circuit? write $\vec{v}$ in terms of known quantities $(\vec{f} , \vec{b}, G, F, R)$.}
+
+        First let us compute the product $F^T\vec{i}:$
+        \begin{center}
+        $\begin{bmatrix}
+        -1&1&0&1&0\\
+        0&-1&-1&0&1\\
+        1&0&1&-1&-1
+        \end{bmatrix}
+        \begin{bmatrix}
+        i_1\\i_2\\i_3\\i_4\\i_5
+        \end{bmatrix}
+        =
+        \begin{bmatrix}
+        -i_1+i_2+i_4\\-i_2-i_3+i_5\\i_1+i_3-i_4-i_5
+        \end{bmatrix}$
+        \end{center}
+        From this, we know the vector $\vec{f}$ has 3 elements in it. Furthermore, we know we combined the nodes 1 and 4 into a supernode. Therefore:
+        \begin{align}
+            \Aboxed{\vec{f} =
+            \begin{bmatrix}
+            0\\0\\0
+            \end{bmatrix}}
+        \end{align}
+        Solving the Ohm’s law equation for $\vec{i}$,
+        \begin{equation*}
+            \vec{i} = G(F\vec{v} + \vec{b}).
+        \end{equation*}
+        Now plugging this expression into KCL we see
+        \begin{equation*}
+            F^TG(F\vec{v} + \vec{b}) = -\vec{f}
+        \end{equation*}
+        Does this equation have a unique solution?
+        Let us first go back to the matrix $F$, row-reducing we see $F$ has a linearly dependent column.
+        \begin{equation*}
+            F = \begin{bmatrix} -1&0&1\\1&-1&0\\0&-1&1\\1&0&-1\\0&1&-1\end{bmatrix} \implies \begin{bmatrix} 1&0&-1\\0&1&-1\\0&0&0\\0&0&0\\0&0&0\end{bmatrix}
+        \end{equation*}
+        This implies that the system is underdetermined. In order to make this system determined, we can drop one column of the $F$ matrix, and ignore one potential in $\vec{v}$. We will assign this node a potential of 0. This is equivalent to grounding a node in a circuit ($\vec{v}_{gr}$).
+
+        Call the new matrix $F_{gr}$ and the new $\vec{f}$ as $\vec{f}_{gr}$. Then $F_{gr}$ has no null space and:
+        \begin{align*}
+            \vec{i} = GF_{gr}\vec{v}_{gr} + G\vec{b}
+        \end{align*}
+        Plugging this into KCL again, we see
+        \begin{align*}
+            F^T_{gr}GF_{gr}\vec{v}_{gr} + F^T_{gr}G\vec{b} = -\vec{f}_{gr}
+        \end{align*}
+        Thus,
+        \begin{align}
+            \Aboxed{F^T_{gr}GF_{gr}\vec{v}_{gr} = -\vec{f}_{gr} - F^T_{gr}G\vec{b}}
+        \end{align}
+    \end{menumerate}
+
+    \newpage
+    \item \textbf{Circuitikz Example} My designed circuit:\\
+    \begin{center}
+        \begin{circuitikz}[american currents, american voltages]
+            \draw (-5, 0.5) 
+                to [V,v=$0.3V$] (-3, 0.5);
+            \draw (0, 0) node[op amp] (opamp) {}
+                (opamp.-) to[R=$1k\Omega$] (-3, 0.5)
+                (opamp.down) node[ground] {}
+                (opamp.up) to[C=$V_{sc}$] ++(0,2)
+                to[short] ++(1,0) node[ground] {}
+                (opamp.+) to[short,*-] ++(0,-2.0) coordinate (leftC)
+                to[R=$1 \Omega$] (leftC -| opamp.out)
+                to[short,-*] (opamp.out);
+            \draw
+                (-1.2,-2.5) to[R=$2\Omega$, *-] (-1.2,-4)
+                node[ground] {};
+            \draw (1.25,0) to[short,-*] ++(1,0)
+                to[I=$10mA$] ++(0,-2.5);
+            \draw (2.25,-2.5) to[short,*-o] ++(2,0) node[right] {$-$};
+            \draw (2.25,0) to[short,-o] ++(2,0) node[right] {$+$};
+            \draw (4.25,-1.25) node[right] {$V_{out} = 1.2V$};
+        \end{circuitikz}
+    \end{center}
+
+
+\end{menumerate}
+
+\end{document}

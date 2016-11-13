@@ -1,0 +1,134 @@
+\documentclass{article}\usepackage{amsmath,amssymb,amsthm,tikz,tkz-graph,color,chngpage,soul,hyperref,csquotes,graphicx,floatrow}\newcommand*{\QEDB}{\hfill\ensuremath{\square}}\newtheorem*{prop}{Proposition}\renewcommand{\theenumi}{\alph{enumi}}\usepackage[shortlabels]{enumitem}\usepackage[nobreak=true]{mdframed}\usetikzlibrary{matrix,calc}\MakeOuterQuote{"}\usepackage[margin=1in]{geometry} \newtheorem{theorem}{Theorem}
+\usepackage{tabto}
+	\NumTabs{20}
+\usepackage{fancyhdr}
+\pagestyle{fancy}
+
+\headheight=40pt
+%New footer so your name gets on every page
+\rfoot{David Lee | 3031796951}
+
+\renewcommand{\headrulewidth}{6pt}
+\lhead{ \Large  \fontfamily{lmdh}\selectfont
+EECS 16A	\tab Designing Information Devices and Systems I
+\\Fall 2016		\tab	\tab Babak Ayazifar, Vladimir Stojanovic}
+\rhead{\LARGE 	\fontfamily{lmdh}\selectfont	Homework 1}
+
+
+\begin{document}
+
+\subsection*{0. Identifying Information}
+\begin{enumerate}
+\item \textbf{Name:} David Lee%Your name here
+\item \textbf{SID:} 3031796951%Your SID here
+\item \textbf{Discussion GSI(s) (optional):} %Their names here
+\item \textbf{Lab GSI (optional):} %Their name here
+\end{enumerate}
+
+\subsection*{1. Study Group}
+\begin{mdframed}
+\textbf{Solution}
+
+William Song - SID: 3031799759
+
+Matthew Soh - SID: 3032109159% Your answer here
+\end{mdframed}
+\clearpage
+
+\subsection*{2. Stojanovic's Optimal Smoothies}
+\begin{enumerate}
+\item What were Professor Ayazifar's ratings for each fruit?  \textbf{Work this problem out by hand.}
+\begin{mdframed}
+\textbf{Solution} (see scanned attachment for work)
+
+Strawberries: 6
+
+Bananas: 5
+
+Mangos: 8
+
+Blueberries: 8
+
+Initial Set-up:$\begin{bmatrix} \frac{1}{3} & \frac{1}{3} & 0 & \frac{1}{3} \\ \frac{1}{3} & \frac{1}{3} & \frac{1}{3} & 0 \\ 0 & \frac{2}{5} & \frac{3}{5} & 0 \\ \frac{2}{3} & \frac{1}{3} & 0 & 0 \end{bmatrix} \begin{bmatrix} a\\ b\\c\\d \end{bmatrix} = \begin{bmatrix} 6\frac{1}{3}\\ 6\frac{1}{3}\\6\frac{4}{5}\\5\frac{2}{3} \end{bmatrix}$,
+
+where a, b, c, d are Strawberries, Bananas, Mangos, and Blueberries respectively.
+
+Answer: $\begin{bmatrix} a\\b\\c\\d \end{bmatrix} = \begin{bmatrix} 6\\5\\8\\8 \end{bmatrix}$% Your answer here
+\end{mdframed}
+\item What mystery fruit combination should Professor Stojanovic put in Professor Ayazifar's personalized smoothie? What score would Professor Ayazifar give for this smoothie? (There may be more than one correct answer)
+\begin{mdframed}
+\textbf{Solution} For one possible answer, Professor Stojanovic should combine $\frac{1}{2}$ mango and $\frac{1}{2}$ blueberries in Professor Ayazifar's personalized smoothie for the maximum score.
+
+Professor Ayazifar would give a score of 8 for that smoothie.% Your answer here
+\end{mdframed}
+\end{enumerate}
+\clearpage
+
+\subsection*{3. Finding charges from voltage measurements}
+Write the system of linear equations relating the voltages to charges, and solve the system to find the charges $Q_1, Q_2, Q_3$. You may use your IPython notebook to solve the system.
+\begin{mdframed}
+\textbf{Solution} Set-up:$\begin{bmatrix} \dfrac{1}{\sqrt{2}} & \dfrac{1}{\sqrt{5}} & \dfrac{1}{2} \\ 1 & \dfrac{1}{\sqrt{2}} & 1 \\ \dfrac{1}{2} & \dfrac{1}{\sqrt{5}} & \dfrac{1}{\sqrt{2}} \end{bmatrix} \begin{bmatrix} Q_1\\Q_2\\Q_3 \end{bmatrix} = \begin{bmatrix} \dfrac{4+3\sqrt{5}+\sqrt{10}}{2\sqrt{5}}\\ \dfrac{2+4\sqrt{2}}{\sqrt{2}}\\\dfrac{4+\sqrt{5}+3\sqrt{10}}{2\sqrt{5}} \end{bmatrix}$,
+
+where $Q_1, Q_2, Q_3$ are the three point charges whose positions are known.
+
+Answer: $Q_1 = 1.0  Q_2 = 2.0000000000000013  Q_3 = 2.999999999999999$
+
+or $\begin{bmatrix} Q_1\\Q_2\\Q_3 \end{bmatrix} = \begin{bmatrix} 1\\2\\3\end{bmatrix}$
+
+(see attached ipynb pdf for code)% Your answer here
+\end{mdframed}
+\clearpage
+
+\subsection*{4. The Framingham Risk Score}
+\begin{enumerate}
+\item The intern dug up some of the records for patients in the study group who fit the criteria of the formula in question. The records are summarized in the table. Use these records to devise a system of linear equations where $a,b,c$ and $d$ are the unknowns.
+\begin{mdframed}
+\textbf{Solution} Set-Up:$\begin{bmatrix} 4.18965474 & 5.28826703 & 4.00733319 & 4.88280192 \\ 4.11087386 & 5.19295685 & 3.8501476 & 4.82028157 \\ 4.09434456 & 5.19295685 & 3.91202301 & 4.78749174 \\ 3.13549422 & 4.88280192 & 3.80666249 & 4.88280192 \end{bmatrix} \begin{bmatrix} a\\ b\\c\\d \end{bmatrix} = \begin{bmatrix} 26.84889282 \\ 26.48830875 \\ 26.31468674 \\ 24.07908834 \end{bmatrix}$,
+
+where a, b, c, d are constant coefficients for the equation for R.
+
+(see attached ipynb pdf for code)% Your answer here
+\end{mdframed}
+\item Solve the system of linear equations that you devised in question (a) of this problem. For this question, you can use IPython.
+\begin{mdframed}
+\textbf{Solution} [2.3098569091997123 1.1695549079666905 -0.6945169529064997 2.8200267513575112] or $\begin{bmatrix} a\\b\\c\\d \end{bmatrix} = \begin{bmatrix} 2.3098569091997123\\1.1695549079666905\\-0.6945169529064997\\2.8200267513575112\end{bmatrix}$
+
+(see attached ipynb pdf for code)% Your answer here
+\end{mdframed}
+\end{enumerate}
+\clearpage
+
+\subsection*{5. Filtering out the Troll}
+\begin{enumerate}
+\item Using the notation above, let the important speaker be speaker $A$ (with signal $\vec{a}$) and let the person trolling be "speaker" $B$ (with signal $\vec{b}$). Express the recordings of the two microphones $\vec{m_1}$ and $\vec{m_2}$ (i.e. the signals recorded by the first and the second microphones, respectively) as a linear combination of $\vec{a}$ and $\vec{b}$.
+\begin{mdframed}
+\textbf{Solution} $$\vec{m_1} = \frac{\sqrt{2}}{2}\vec{a} + \frac{\sqrt{3}}{2}\vec{b}$$$$\vec{m_2} = \frac{\sqrt{2}}{2}\vec{a} - \frac{1}{2}\vec{b}$$
+
+(see scanned attachment for work)% Your answer here
+\end{mdframed}
+\item Recover the important speech $\vec{a}$, as a weighted combination of $\vec{m_1}$ and $\vec{m_2}$. In other words, write $\vec{a} = u \cdot \vec{m_1} + v \cdot \vec{m_2}$ (where $u$ and $v$ are scalars). What are the values of $u$ and $v$?
+\begin{mdframed}
+\textbf{Solution} $$\vec{a} = \frac{2}{\sqrt{2}+\sqrt{6}}\vec{m_1} + \frac{2\sqrt{3}}{\sqrt{2}+\sqrt{6}}\vec{m_2}$$$$u = \frac{2}{\sqrt{2}+\sqrt{6}}$$$$v = \frac{2\sqrt{3}}{\sqrt{2}+\sqrt{6}}$$
+
+(see scanned attachment for work)% Your answer here
+\end{mdframed}
+\item Partial IPython code can be found in \texttt{prob1.ipynb}. Complete the code to get a clean signal of the important speech. What does the speaker say? (Optional: Where is the speech taken from?)
+\begin{mdframed}
+\textbf{Solution} "All human beings are born free and equal in dignity and rights"% Your answer here
+\end{mdframed}
+\end{enumerate}
+\clearpage
+
+\subsection*{6. Your Own Problem}
+%Your problem here
+\begin{mdframed}
+\textbf{Solution} David, Damian, and Dirk went to the Asian Ghetto to buy some food. They were advised not to order anything but the Godfather from Gypsies, the Eggplant(Item \#5 on the menu) from Thai Basil, or the Kimchi Pork Rice (Item \#40 on the menu) from Bears Ramen. Hungry as they were, David ordered two Godfathers and one Rice, Damian ordered one of each (for a total of 3 dishes), and Dirk ordered three Eggplants and two Rice. David, Damian, and Dirk each paid \$35, \$32, and \$49 respectively.
+Unfortunately, they all forgot the price of each dish when they finished eating. Can you solve for the price of each dish with the given information?
+
+Solve by setting up a system of equations with the given information.
+
+Answer: Godfather = \$12, Eggplant = \$9, Rice = \$11% Your answer here
+\end{mdframed}
+\[\]
+\begin{center} \textit{\textbf{Reminder:} Make sure to attach a pdf version of your iPython code below!} \end{center}
+\end{document}
