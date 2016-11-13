@@ -178,28 +178,32 @@ class Link:
     \end{menumerate}
 
     \newpage
-    \item \textbf{Circuitikz Example} My designed circuit:\\
+    \item \textbf{Circuitikz/TikzPicture Example} My designed circuit:\\
     \begin{center}
-        \begin{circuitikz}[american currents, american voltages]
-            \draw (-5, 0.5) 
-                to [V,v=$0.3V$] (-3, 0.5);
-            \draw (0, 0) node[op amp] (opamp) {}
-                (opamp.-) to[R=$1k\Omega$] (-3, 0.5)
-                (opamp.down) node[ground] {}
-                (opamp.up) to[C=$V_{sc}$] ++(0,2)
-                to[short] ++(1,0) node[ground] {}
-                (opamp.+) to[short,*-] ++(0,-2.0) coordinate (leftC)
-                to[R=$1 \Omega$] (leftC -| opamp.out)
-                to[short,-*] (opamp.out);
-            \draw
-                (-1.2,-2.5) to[R=$2\Omega$, *-] (-1.2,-4)
-                node[ground] {};
-            \draw (1.25,0) to[short,-*] ++(1,0)
-                to[I=$10mA$] ++(0,-2.5);
-            \draw (2.25,-2.5) to[short,*-o] ++(2,0) node[right] {$-$};
-            \draw (2.25,0) to[short,-o] ++(2,0) node[right] {$+$};
-            \draw (4.25,-1.25) node[right] {$V_{out} = 1.2V$};
-        \end{circuitikz}
+      \begin{circuitikz}
+          %rectangle%
+          \draw[style=dashed, fill=blue!10] (0,1) rectangle (8,-7);
+
+          \draw (-0.5,0) node[left]{$v_{mic1}'$} to[short, o-*] ++(1.5,0) to[R=$R/a_{1left}$] ++(2,0) to[short, -*] ++(0,-1);
+          \draw (-0.5,-1) node[left]{$v_{mic2}'$} to[short, o-*] ++(7/6,0) to ++(1/3,0) to[R=$R/a_{2left}$] ++(2,0) to ++(1.5,0);
+          \draw (-0.5,-2) node[left]{$v_{mic3}'$} to[short, o-*] ++(5/6,0) to ++(2/3,0) to[R=$R/a_{3left}$] ++(2,0) to[short, -*] ++(0,1);
+
+          %top op-amp%
+          \draw (6,-1.5) node[op amp] (opamp){}
+              (opamp.-) to[short, -*] ++(-0.25,0) to ++(0,1) to[R=$R$] ++(2.88,0) to ++(0,-1.5)
+              (opamp.+) to ++(-0.25,0) node[ground] {}
+              (opamp.out) to ++(0.25,0) to[short, *-o] ++(1,0) node[right] {$v_{cancel\_left}$};
+
+          \draw (1,0) to ++(0,-4) to[R=$R/a_{1right}$] ++(2,0) to[short, -*] ++(0,-1);
+          \draw (2/3,-1) to ++(0,-4) to ++(1/3,0) to[R=$R/a_{2right}$] ++(2,0) to ++(1.5,0);
+          \draw (1/3,-2) to ++(0,-4) to ++(2/3,0) to[R=$R/a_{3right}$] ++(2,0) to[short, -*] ++(0,1);
+
+          %bottom op-amp%
+          \draw (6,-5.5) node[op amp] (opamp){}
+              (opamp.-) to[short, -*] ++(-0.25,0) to ++(0,1) to[R=$R$] ++(2.88,0) to ++(0,-1.5)
+              (opamp.+) to ++(-0.25,0) node[ground] {}
+              (opamp.out) to ++(0.25,0) to[short, *-o] ++(1,0) node[right] {$v_{cancel\_right}$};
+      \end{circuitikz}
     \end{center}
 
 
