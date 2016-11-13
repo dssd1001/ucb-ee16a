@@ -1,0 +1,340 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%                      Homework 6                            %%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\documentclass[letter]{article}
+
+\usepackage{lipsum}
+\usepackage[pdftex]{graphicx}
+\usepackage[margin=1.5in]{geometry}
+\usepackage[english]{babel}
+\usepackage{listings}
+\usepackage{amsthm}
+\usepackage{amssymb}
+\usepackage{framed}
+\usepackage{amsmath, mathtools}
+\usepackage{titling}
+\usepackage{fancyhdr}
+
+\pagestyle{fancy}
+
+\newtheorem{theorem}{Theorem}
+\newtheorem{definition}{Definition}
+
+\newenvironment{menumerate}{%
+  \edef\backupindent{\the\parindent}%
+  \enumerate%
+  \setlength{\parindent}{\backupindent}%
+}{\endenumerate}
+
+
+%%%%%%%%%%%%%%%
+%% DOC INFO %%%
+%%%%%%%%%%%%%%%
+\newcommand{\bHWN}{6}
+\newcommand{\bCLASS}{EE 16A}
+
+\title{\bCLASS: Homework \bHWN}
+\author{David J. Lee\\3031796951\\dssd1001@berkeley.edu}
+
+\fancyhead[L]{\bCLASS}
+\fancyhead[CO]{Homework \bHWN}
+\fancyhead[R]{\thepage}
+\fancyfoot[LR]{}
+\fancyfoot[C]{}
+
+%%%%%%%%%%%%%%
+
+\begin{document}
+\maketitle
+\thispagestyle{empty}
+
+\begin{menumerate}
+    \item Matt Soh 3032109159, William Song 3031799759.
+
+    I worked alone for 5 hours then met up with William and Matt to discuss how to approach and solve each problem.
+
+    \item \textbf{Nodal Analysis}
+    \begin{menumerate}
+        \item \emph{Solve for all node voltages using nodal analysis. Verify with superposition.}
+
+        We would like to compute the node potentials at $V_1$ and $V_2$. So, let us perform nodal analysis by summing the current (flow) that goes in and out of these two nodes.
+
+        For $V_1$, we have:
+        \begin{equation}
+            -1 + \frac{1}{10}(V_1 - 0) + \frac{1}{20}(V_1 - V_2) = 0
+        \end{equation}
+        which simplifies to
+        \begin{equation}
+            \frac{3}{20}V_1 - \frac{1}{20}V_2 = 1.
+        \end{equation}
+
+        For $V_2$, we have:
+        \begin{equation}
+            2 + \frac{1}{50}(V_2 - 0) + \frac{1}{20}(V_2 - V_1) = 0
+        \end{equation}
+        which simplifies to
+        \begin{equation}
+            \frac{1}{20}V_1 - \frac{7}{100}V_2 = 2.
+        \end{equation}
+
+        By putting equations (2) and (4) into the matrix-vector form $Av = b$, we get
+        \begin{equation}
+            \begin{bmatrix}
+                \frac{3}{20} & -\frac{1}{20} \\ \frac{1}{20} & -\frac{7}{100}
+            \end{bmatrix}v =
+            \begin{bmatrix}
+                1 \\ 2
+            \end{bmatrix}
+        \end{equation}
+        Using ipython notebook to solve for $V_1$ and $V_2$ using numpy (code provided in the back), we get
+        \begin{align}
+            \Aboxed{V_1 &= -3.75V} \\
+            \Aboxed{V_2 &= -31.25 V}
+        \end{align}
+
+        Verifying with superposition: first we consider the left current source ($1A$):
+        \begin{center}
+            \includegraphics[scale=0.2]{2a1.png}
+        \end{center}
+        \begin{align}
+            V_1 = IR_{eq} = (1A)(\frac{1}{\frac{1}{10\Omega} + \frac{1}{70\Omega}}) &= \frac{70}{8}V \\
+            V_2 = (\frac{50\Omega}{20\Omega + 50\Omega})V_1 &= \frac{50}{8}V
+        \end{align}
+        next, the right current source (2A):
+        \begin{center}
+            \includegraphics[scale=0.2]{2a2.png}
+        \end{center}
+        \begin{align}
+            V_2 = IR_{eq} = (-2A)(\frac{1}{\frac{1}{30\Omega} + \frac{1}{50\Omega}}) &= -\frac{150}{4}V \\
+            V_1 = (\frac{10\Omega}{10\Omega + 20\Omega})V_2 &= -\frac{50}{4}V
+        \end{align}
+        Thus, by adding equations (8) + (11) and (9) + (10) we get
+        \begin{align}
+            V_1 = \frac{70}{8}V - \frac{50}{4}V \implies \Aboxed{V_1 &= -\frac{15}{4}V} \\
+            V_2 = \frac{50}{8}V - \frac{150}{4}V \implies \Aboxed{V_2 &= -\frac{125}{4}V}
+        \end{align}
+        \item \emph{Solve for all node voltages using nodal analysis.}
+
+        Redraw the circuit with an added node 3:
+        \begin{center}
+        \includegraphics[scale=0.2]{2b.png}
+        \end{center}
+        Notice that $V_2 = V_x$ since $V_2$ is connected to the ground through the $60\Omega$ resistor. Keeping this in mind, we proceed with nodal analysis on each node (1,2,3):
+
+        For $V_1$, we have:
+        \begin{equation}
+            \frac{1}{10\Omega}(V_1 - 1V) - 10V_2 + \frac{1}{20\Omega}(V_1 - 0) + \frac{1}{50\Omega}(V_1 - 10V - v_3) = 0
+        \end{equation}
+        For $V_2$, we have:
+        \begin{equation}
+            \frac{1}{60\Omega}(V_2 - 0) + \frac{1}{55\Omega}(V_2 - V_3) = 0
+        \end{equation}
+        For $V_3$, we have:
+        \begin{equation}
+            \frac{1}{50\Omega}(V_3 + 10V - V_1) + \frac{1}{55\Omega}(V_3 - V_2) = 0
+        \end{equation}
+        With some rearranging into the matrix-vector form ($Av = b$, where $v = \begin{bmatrix}
+                V_1\\ V_2\\ V_3
+            \end{bmatrix}$) then solving through iPython(code in the back), we get
+        \begin{align}
+            \Aboxed{V_1 &= 10.402V} \\
+            \Aboxed{V_2 &= 0.146V}
+        \end{align}
+    \end{menumerate}
+
+    \item \textbf{Thévenin and Norton equivalent circuits}
+    \begin{menumerate}
+        \item \emph{Find the Thévenin and Norton equivalent circuits seen from the outside the box.}
+
+        First, calculate the effective resistance seen from the voltage source to find the current supplied by the voltage source. The resistances $R_3$ and $R_4$ are in series hence have effective resistance of $6\Omega$. They are connected in parallel to a $R_2$ resistance yielding an effective resistance of
+        \begin{equation}
+          (\frac{1}{6} + \frac{1}{3})^{-1} = 2\Omega.
+        \end{equation}
+        This resistance is in series to $R_1$, yielding a total effective resistance of
+        \begin{equation}
+            R_{eq} = 3\Omega + 2\Omega = 5\Omega.
+        \end{equation}
+        Hence the current supplied by the voltage source is
+        \begin{equation}
+            I = \frac{10V}{5\Omega} = 2A
+        \end{equation}
+        Now set up these KCL / KVL equations:
+        \begin{align}
+            -v_2 + v_3 + v_4 = 0 \\ v_2 = 3I_2 \\ v_3 = 4.5I_3 \\ v_4 = 1.5I_3 \\ I = I_2 + I_3 = 2A
+        \end{align}
+        We combine equations (4) through (7) to get
+        \begin{equation}
+            \implies -3I_2 + 4.5I_3 + 1.5I_3 = 0
+        \end{equation}
+        Solving equations (8) and (9) for $I_3$, we get
+        \begin{equation}
+            3I_3 + 6I_3 = 6A \implies I_3 = \frac{2}{3}A
+        \end{equation}
+        Thus $V_{thvenin} = 4.5I_3 =$ 3 Volts.
+        The Norton equivalent is given by
+        \begin{equation}
+            I_{norton} = \frac{V_{thvenin}}{R_{thvenin}} = \frac{3}{\frac{9}{4}} = \frac{4}{3}A
+        \end{equation}
+        \item \emph{Find the Thévenin and Norton equivalent circuits seen from the outside the box.}
+
+        \begin{align}
+            V_{thevenin} = IR = (2A)(1.5\Omega) \implies \Aboxed{V_{th} = 3V} \\
+            I_{sc} = \frac{V_{th}}{(R_1 || R_3 + R_5)} \implies \Aboxed{I_{no} = 2.8A} \\
+            R_{thevenin} = \frac{V_{th}}{I_{sc}} = \frac{3V}{2.8A} \implies \Aboxed{R_{th} = 1.0714\Omega}
+        \end{align}
+    \end{menumerate}
+
+    \item \textbf{Nodal Analysis Or Superposition?} \emph{Solve for the current through the $3\Omega$ resistor, marked as i, using superposition. Verify using nodal analysis. You can use IPython to solve the system of equations if you wish. Where did you place your ground, and why?}
+
+    \textbf{Using superposition:}
+    We look at one independent source at a time, and in this case, $V_s$ then $I_s$:
+    \begin{center}
+    \includegraphics[scale=0.2]{4_1.png}
+    \end{center}
+
+    From the left superposition, we can easily see that
+    \begin{align}
+        I = \frac{V}{R_{eq}} = \frac{5V}{3\Omega + 3\Omega} = \frac{5}{6}A
+    \end{align}
+    and since $i$ is just in the opposing direction of the same current,
+    \begin{align}
+        i = -I = -\frac{5}{6}A
+    \end{align}
+
+    From the right superposition, we notice the symmetry so it is easy to see that the current source splits evenly:
+    \begin{align}
+        i = \frac{1}{2}I_s = \frac{1}{2}A
+    \end{align}
+
+    Thus by superposition,
+    \begin{align}
+        i = -\frac{5}{6}A + \frac{1}{2}A \implies \Aboxed{i = -\frac{1}{3}A}
+    \end{align}
+
+    \textbf{Verify using nodal analysis:}
+    From all the nodes that exist in this circuit, we label nodes 1, 2, 3, and 4, and recognizing that we cannot solve for all of these potentials, we place a ground node to set the potential of $V_4 = 0$:
+    \begin{center}
+    \includegraphics[scale=0.2]{4_2.png}
+    \end{center}
+    It is easy to see that $V_1$ (potential at node 1) is
+    \begin{align}
+        V_1 = -V_s
+    \end{align}
+    Now, proceed with nodal analysis on nodes 2 and 3:
+
+    For $V_2$, we have:
+    \begin{equation}
+        I_s + G_2(V_3 - V_4) = 0
+    \end{equation}
+
+    For $V_3$, we have:
+    \begin{equation}
+        G_3(V_4 - V_1) + G_2(V_4 - V_3) + G_4(V_4 - 0) = 0
+    \end{equation}
+    Substituting in $V_1$ in equation (36) then rearranging into the matrix-vector form ($Av = b$, where $v =
+    \begin{bmatrix}
+        V_2\\ V_3
+    \end{bmatrix}$) then solving through iPython(code in the back), we get
+    \begin{align}
+        V_2 &= -5.5V \\
+        V_3 &= -4V
+    \end{align}
+    Finally, to solve for current $i$ through $R_3$,
+    \begin{align}
+        i = \frac{\Delta V}{R_3} = \frac{V_1 - V_3}{R_3} = \frac{-5V - (-4V)}{3\Omega} \implies \Aboxed{i = -\frac{1}{3}A}
+    \end{align}
+
+    \item \textbf{Optional}
+
+    \item \textbf{Solving Circuits with Voltage Sources}
+    \begin{menumerate}
+        \item \emph{What relationship does the voltage source enforce between $v_1$ and $v_4$?}
+
+        \begin{align}
+            \Aboxed{v_1 - v_4 = V_s}
+        \end{align}
+
+        The voltage source fixes the nodes to be a constant offset from each other.
+        \item \emph{Draw the graph for the circuit where $v_1$ and $v_4$ are combined into one node. Specify a new incidence matrix for this graph.}
+
+        \begin{center}
+        \includegraphics[scale=0.2]{6b.png} \\
+        $F = \begin{bmatrix} -1&0&1\\1&-1&0\\0&-1&1\\1&0&-1\\0&1&-1\end{bmatrix}$
+        \end{center}
+
+        \item \emph{Find $R$ and $\vec{b}$ so that Ohm’s law is written $F\vec{v} + \vec{b} = R\vec{i}$.}
+
+        \begin{center}
+        $R = \begin{bmatrix}
+        R_1&0&0&0&0\\
+        0&R_2&0&0&0\\
+        0&0&R_3&0&0\\
+        0&0&0&R_4&0\\
+        0&0&0&0&R_5
+        \end{bmatrix}$ \\
+        $b = \begin{bmatrix}
+        V_s\\0\\V_s\\0\\0
+        \end{bmatrix}$
+        \end{center}
+        \item \emph{What is $\vec{f}$ in this circuit? write $\vec{v}$ in terms of known quantities $(\vec{f} , \vec{b}, G, F, R)$. You may need to modify several of the members of the derived equation by grounding a node and dropping a row or a column in order to give the problem a unique solution.}
+
+        First let us compute the product $F^T\vec{i}:$
+        \begin{center}
+        $\begin{bmatrix}
+        -1&1&0&1&0\\
+        0&-1&-1&0&1\\
+        1&0&1&-1&-1
+        \end{bmatrix}
+        \begin{bmatrix}
+        i_1\\i_2\\i_3\\i_4\\i_5
+        \end{bmatrix}
+        =
+        \begin{bmatrix}
+        -i_1+i_2+i_4\\-i_2-i_3+i_5\\i_1+i_3-i_4-i_5
+        \end{bmatrix}$
+        \end{center}
+        From this, we know the vector $\vec{f}$ has 3 elements in it. Furthermore, we know we combined the nodes 1 and 4 into a supernode. Therefore:
+        \begin{align}
+        \Aboxed{\vec{f} =
+        \begin{bmatrix}
+        0\\0\\0
+        \end{bmatrix}}
+        \end{align}
+        Solving the Ohm’s law equation for $\vec{i}$,
+        \begin{center}
+        $\vec{i} = G(F\vec{v} + \vec{b})$.
+        \end{center}
+        Now plugging this expression into KCL we see
+        \begin{center}$F^TG(F\vec{v} + \vec{b}) = -\vec{f}$
+        \end{center}
+        Does this equation have a unique solution?
+        Let us first go back to the matrix $F$, row-reducing we see $F$ has a linearly dependent column.
+        \begin{center}
+        $F = \begin{bmatrix} -1&0&1\\1&-1&0\\0&-1&1\\1&0&-1\\0&1&-1\end{bmatrix} - > \begin{bmatrix} 1&0&-1\\0&1&-1\\0&0&0\\0&0&0\\0&0&0\end{bmatrix}
+        $
+        \end{center}
+        This implies that the system is underdetermined. In order to make this system determined, we can drop one column of the $F$ matrix, and ignore one potential in $\vec{v}$. We will assign this node a potential of 0. This is equivalent to grounding a node in a circuit ($\vec{v}_{gr}$).
+
+        Call the new matrix $F_{gr}$ and the new $\vec{f}$ as $\vec{f}_{gr}$. Then $F_{gr}$ has no null space and:
+        \begin{align}
+            \vec{i} = GF_{gr}\vec{v}_{gr} + G\vec{b}
+        \end{align}
+        Plugging this into KCL again, we see
+        \begin{align}
+            F^T_{gr}GF_{gr}\vec{v}_{gr} + F^T_{gr}G\vec{b} = -\vec{f}_{gr}
+        \end{align}
+        Thus,
+        \begin{align}
+            \Aboxed{F^T_{gr}GF_{gr}\vec{v}_{gr} = -\vec{f}_{gr} - F^T_{gr}G\vec{b}}
+        \end{align}
+        \item \emph{write $\vec{i}$ in terms of known quantities}
+        \begin{align}
+            \Aboxed{\vec{i} = G(F_{gr}\vec{v}_{gr} + \vec{b})}
+        \end{align}
+        \item See iPython Notebook in the end of PDF
+    \end{menumerate}
+
+\end{menumerate}
+
+\end{document}
