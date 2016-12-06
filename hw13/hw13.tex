@@ -1,0 +1,478 @@
+%%%%%%%%%%%%%%
+% Homework 13 %
+%%%%%%%%%%%%%%
+
+\documentclass[letter]{article}
+
+\usepackage{lipsum}
+\usepackage[pdftex]{graphicx}
+\usepackage[margin=1.5in]{geometry}
+\usepackage[english]{babel}
+\usepackage{listings}
+\usepackage{amsthm}
+\usepackage{amssymb}
+\usepackage{framed}
+\usepackage{amsmath, mathtools}
+\usepackage{titling}
+\usepackage{fancyhdr}
+\usepackage{tikz}
+\usepackage[american]{circuitikz}
+
+\pagestyle{fancy}
+
+\newtheorem{theorem}{Theorem}[section]
+
+\newenvironment{menumerate}{\edef\backupindent{\the\parindent}
+  \enumerate\setlength{\parindent}{\backupindent}}
+  {\endenumerate}
+
+\lstset{language=python}
+
+%%%%%%%%%%%%%%
+%  Doc Info  %
+%%%%%%%%%%%%%%
+\newcommand{\hwn}{13}
+\newcommand{\class}{EE 16A}
+
+\title{\class: Homework \hwn}
+\author{David J. Lee\\3031796951\\dssd1001@berkeley.edu}
+
+\fancyhead[L]{\class}
+\fancyhead[C]{Homework \hwn}
+\fancyhead[R]{\thepage}
+\fancyfoot{}
+
+%%%%%%%%%%%%%%
+
+\begin{document}
+\maketitle
+\thispagestyle{empty}
+
+\begin{menumerate}
+    \item \textbf{Worked With...}
+
+    Ilya (3031806896), James Zhu (3031793129)\\
+    I worked alone on Friday morning, then met up with Ilya and James to discuss on Saturday afternoon.
+
+    \newpage
+    \item \textbf{Mechanical Problem} Compute eigenvalues + eigenvectors.
+    \begin{menumerate}
+        \item
+        \begin{equation*}
+        \begin{aligned}
+        A &=
+            \begin{bmatrix}
+                3&0\\
+                0&5
+            \end{bmatrix}\\
+        A - \lambda I_2 &=
+            \begin{bmatrix}
+                3-\lambda&0\\
+                0&5-\lambda
+            \end{bmatrix} = 0
+        \end{aligned}
+        \end{equation*}
+        Set the determinant to zero:
+        \begin{equation*}
+            (3 - \lambda)(5 - \lambda) = 0
+        \end{equation*}
+        Implies that $\lambda = 3, \lambda = 5$. Plugging those values into the original equation above, we can see that\\
+        The eigenvectors associated with $\lambda = 3$ are all of the form
+        \begin{equation*}
+            \alpha \begin{bmatrix}1\\0\end{bmatrix}, \alpha \in \mathbb{R} .
+        \end{equation*}
+        The eigenvectors associated with $\lambda = 5$ are all of the form
+        \begin{equation*}
+            \alpha \begin{bmatrix}0\\1\end{bmatrix}, \alpha \in \mathbb{R} .
+        \end{equation*}
+
+        \item
+        \begin{equation*}
+        A =
+            \begin{bmatrix}
+                22&6\\
+                6&13
+            \end{bmatrix}
+        \end{equation*}
+        \begin{equation*}
+                 \begin{aligned}
+                     (22 - \lambda)(13 - \lambda) - 36 = 0 \\
+                     250 - 35\lambda + \lambda^2 = 0 \\
+                     (\lambda - 25)(\lambda - 10) = 0
+                 \end{aligned}
+        \end{equation*}
+        Implies $\lambda = 25, 10$. Plugging those values into the partial lambda matrix we get coressponding eigenparis
+        \begin{equation*}
+                 e_1 = \left(\begin{bmatrix}
+                     2 \\ 1
+                 \end{bmatrix}, 25\right),
+                 \;\;\;\;
+                 e_2 = \left(\begin{bmatrix}
+                     1 \\ -2
+                 \end{bmatrix}
+                 , 10\right).
+        \end{equation*}
+
+        \item
+        \begin{equation*}
+        A =
+            \begin{bmatrix}
+                1&2\\
+                2&4
+            \end{bmatrix}
+        \end{equation*}
+        \begin{equation*}
+                 \begin{aligned}
+                     (1 - \lambda)(4 - \lambda) -4 = 0 \\
+                    4 - 5\lambda + \lambda^2 -4 = 0 \\
+                     (5 - \lambda)\lambda = 0
+                 \end{aligned}
+        \end{equation*}
+        Implies that $\lambda = 5,0$.
+             Plugging those values into the partial lambda matrix we get
+             coressponding eigenparis
+             \begin{equation*}
+                 e_1 = \left(\begin{bmatrix}
+                     -2 \\ 1
+                 \end{bmatrix}, 0\right),
+                 \;\;\;\;
+                 e_2 = \left(\begin{bmatrix}
+                     1 \\ 2
+                 \end{bmatrix}
+                 , 5\right).
+        \end{equation*}
+
+        \item
+        \begin{equation*}
+        A =
+            \begin{bmatrix}
+                \frac{\sqrt{3}}{2}&-\frac{1}{2}\\
+                \frac{1}{2}&\frac{\sqrt{3}}{2}
+            \end{bmatrix}
+        \end{equation*}
+        \begin{equation*}
+                 \begin{aligned}
+                     \left(\frac{\sqrt{3}}{2} - \lambda\right)\left(\frac{\sqrt{3}}{2} - \lambda\right) -\frac{1}{4} = 0 \\
+                     \frac{1}{2} - 2\sqrt{3}\lambda + \lambda^2 = 0
+                 \end{aligned}
+             \end{equation*}
+             Implies by the quadratic formula
+             $\lambda = \frac{1}{2}(\sqrt{3} \pm i)$.
+             \\Plugging those values into the partial lambda matrix we get
+             coressponding eigenparis
+             \begin{equation*}
+                 e_1 = \left(\begin{bmatrix}
+                     i \\ 1
+                 \end{bmatrix}, \frac{1}{2}(\sqrt{3} + i)\right),
+                 \;\;\;\;
+                 e_2 = \left(\begin{bmatrix}
+                     -i \\ 1
+                 \end{bmatrix}
+                 , \frac{1}{2}(\sqrt{3} - i)\right).
+             \end{equation*}
+    \end{menumerate}
+
+    \newpage
+    \item \textbf{Mechanical Diagonlization} Diagonalize the matrix
+    \begin{equation*}
+        A =
+        \begin{bmatrix}
+            1/2&1/2&-1/2\\
+            -1/2&3/2&1/2\\
+            -1&1&1
+        \end{bmatrix}
+    \end{equation*}
+    given that A has eigenvalues 1, 2, and 0.\\
+    \\
+    For $\lambda = 1$, we find $\vec{v}$ such that
+         \begin{equation*}
+            \begin{bmatrix}
+                -1 & 1 & -1 \\
+                -1 & 1 & 1 \\
+                -1 & 1 & 0
+            \end{bmatrix} \sim
+            \begin{bmatrix}
+                -2 & 2 & 0 \\
+                -1 & 1 & 1 \\
+                -1 & 1 & 0
+            \end{bmatrix} \sim
+            \begin{bmatrix}
+                -1 & 1 & 0 \\
+                0 & 0 & 1 \\
+                0 & 0 & 0
+            \end{bmatrix}
+            \vec{v} = 0
+         \end{equation*}
+         Therefore
+         \begin{equation*}
+            v_1 = \begin{bmatrix}
+                 1 \\ 1 \\ 0
+            \end{bmatrix}
+         \end{equation*}
+        \\Repeating for $\lambda = 2$ we get
+         \begin{equation*}
+            v_2 = \begin{bmatrix}
+                0 \\ 1 \\ 1
+            \end{bmatrix}
+         \end{equation*}
+        \\For $\lambda = 0$ we get
+         \begin{equation*}
+            v_3 = \begin{bmatrix}
+                1 \\ 0 \\ 1
+            \end{bmatrix}
+         \end{equation*}
+        \\Putting everything together we define
+         \begin{equation*}
+            P_A = \begin{bmatrix}
+                1 & 0 & 1 \\
+                1 & 1 & 0 \\
+                0 & 1 & 1
+            \end{bmatrix}, \;\;
+            D_A = \begin{bmatrix}
+                1 & 0 & 0 \\
+                0 & 2 & 0 \\
+                0 & 0 & 0
+            \end{bmatrix}, \;\;
+            P_A^{-1} = \frac{1}{2}\begin{bmatrix}
+                1 & 1 & -1 \\
+                -1 & 1 & 1 \\
+                1 & -1 & 1
+            \end{bmatrix}
+         \end{equation*}
+         Then $A$ can be diagonalized as $A = P_A D_A P_A^{-1}$.
+
+    \newpage
+    \item \textbf{Spectral Mapping and the Fibonacci Sequence}
+    \begin{menumerate}
+        \item $A^N$ in terms of $PDP^{-1}$:
+        \begin{equation*}
+            A^N = \prod_{i=1}^N PDP^{-1} = PD^NP^{-1}
+        \end{equation*}
+        It says that polynomial functions of $A$ are easily calculated by raising $D$, the eigenvalues of $A$, to certain powers.
+        \item The ratio of fibbonacci numbers tends towards the golden ratio.
+        \item Find the eigen system for the matrix, with $\lambda_1 = \phi, \lambda_2 = \Phi.$
+        \\Eigen vectors are
+        \begin{equation*}
+            v_1 = \begin{bmatrix}
+                \frac{1}{2}(1 + \sqrt{5}) \\ 1
+            \end{bmatrix}, \;\;\;\;
+            v_2 = \begin{bmatrix}
+                \frac{1}{2}(1  -\sqrt{5}) \\ 1
+            \end{bmatrix}
+        \end{equation*}
+        Now we solve for $P^{-1}$.
+        \begin{equation*}
+            P^{-1} = \begin{bmatrix}
+                \frac{-1}{\sqrt{5}} & \frac{1}{10}(5 + \sqrt{5})\\
+                \frac{1}{\sqrt{5}}& \frac{1}{10}(5 - \sqrt{5})
+            \end{bmatrix}
+        \end{equation*}
+        Putting it all together we get
+        \begin{equation*}
+            F =
+            \begin{bmatrix}
+                1/2(1 - \sqrt{5}) & \phi \\
+                1 & 1
+            \end{bmatrix}
+            \begin{bmatrix}
+                1/2(1 - \sqrt{5})^{N-1} & 0 \\
+                0 & \phi^{N-2}
+            \end{bmatrix}\begin{bmatrix}
+                \frac{-1}{\sqrt{5}} & \frac{1}{10}(5 + \sqrt{5})\\
+                \frac{1}{\sqrt{5}}& \frac{1}{10}(5 - \sqrt{5})
+            \end{bmatrix}
+        \end{equation*}
+        \begin{equation*}
+            F_N = \frac{1}{\sqrt{5}} \phi^{N-1} - \frac{-1}{\sqrt{5}}(\frac{1 - \sqrt{5}}{2})^N
+        \end{equation*}
+
+    \end{menumerate}
+
+    \newpage
+	\item \textbf{Image Compression}
+	\begin{menumerate}
+		\item Yes.
+		\\Let $U = [v_1\; \cdots \; v_k \;\; 0 \; \cdots]^T$ and $V = U^T.$ Then let $\Lambda = diag(\lambda_1\; \dots\; \lambda_k\;\; 0\; \dots).$
+		\item To \textbf{fully} capture the information you'll need all of them.
+		\item \emph{see iPython}
+		\item $20$ is lowest
+	\end{menumerate}
+
+	\newpage
+	\item \textbf{Counting the paths of a Random Surfer}
+	\begin{menumerate}
+		\item  \emph{Write out the adjacency matrix for graph A}
+		\begin{equation*}
+			A = \begin{bmatrix}
+				0 & 1 \\
+				1 & 0
+			\end{bmatrix}
+		\end{equation*}
+		\item There is $1$ one-hop path. \\There are $0$ two-hop path. \\There is $1$ three hop path.
+        \item The importance scores are: $(1,1)$.
+        \item \emph{Write out the adjacency matrix for graph B}
+        \begin{equation*}
+            A = \begin{bmatrix}
+                0 & 1 & 1 & 1\\
+                0 & 0 & 1 & 1\\
+                0 & 0 & 0 & 1\\
+                1 & 0 & 1 & 0
+            \end{bmatrix}
+        \end{equation*}
+        \item By squaring the adjacency matrix we get all of the paths of length 2.
+        \begin{equation*}
+            A^2 = \begin{bmatrix}
+                1 & 0 & 2 & 2 \\
+                1 & 0 & 1 & 1 \\
+                1 & 0 & 1 & 0 \\
+                0 & 1 & 1 & 2
+            \end{bmatrix}
+        \end{equation*}
+        From 1 to 3 there is $1$ two-hop path. \\From 1 to 2 there is $1$ two-hop path.
+        \item The importance scores are given by the eigen vector of eigenvalue $1$,
+        \begin{equation*}
+            I = \begin{bmatrix}
+                \frac{1}{3} \\
+                \frac{1}{6} \\
+                \frac{1}{8} \\
+                \frac{3}{8}
+            \end{bmatrix}
+        \end{equation*}
+        \item \emph{Write out the adjacency matrix for graph C}
+        \begin{equation*}
+            A = \begin{bmatrix}
+                0 & 1 & 0 & 0 & 0\\
+                1 & 0 & 0 & 0 & 0\\
+                0 & 0 & 0 & 0 & 1\\
+                0 & 0 & 1 & 0 & 0\\
+                0 & 0 & 1 & 1 & 0
+            \end{bmatrix}
+        \end{equation*}
+        \item THere are no paths from one to three.
+        \item We get eigenvalue 1 with multiplicity two. It is clear that
+        the first two web pages have $0.5$, $0.5$ importance score from the first eigenvector, but in the first eigenvector there is no importance to the second cluster.
+        The second eigen vector gives 3 of inportance $0.4$, four of importance $0.2$
+        and  5 of importance $0.4$. We can use this to give us relative importance scores by adding the eigenvectors and normalizing:
+        \begin{equation*}
+            I = \begin{bmatrix}
+                0.2 \\
+                0.2 \\
+                0.24 \\
+                0.12 \\
+                0.24
+            \end{bmatrix}
+        \end{equation*}
+        This inherently puts more weight to the larger cluster, but to be precise we consider the importance scores independently and use the score
+        \begin{equation*}
+            I_1 = \begin{bmatrix}
+                0.5 \\ 0.5 \\ 0 \\ 0 \\ 0
+            \end{bmatrix}, \;\;\;
+            I_2 = \begin{bmatrix}
+                0 \\ 0 \\ 0.4 \\ 0.2 \\0.4
+            \end{bmatrix}
+        \end{equation*}
+	\end{menumerate}
+
+	\newpage
+    \item \textbf{Sports Rank}
+    \begin{menumerate}
+        \item
+        \begin{equation*}
+            Q = \begin{bmatrix}
+                0 & 1 & 2 \\
+                2 & 0 & 0 \\
+                0 & 3 & 0
+            \end{bmatrix}
+        \end{equation*}
+        \item Okay, let us now develop a method for finding the dominant eigenvector for a matrix when it is unique.
+        \item
+        \begin{equation*}
+            Q^nc\vec{v} = c \prod_{k=1}^{n-1} \lambda \vec{v} = c \prod_{k=1}^{n-2} \lambda^2 \vec{v}= \dots = c\lambda^n \vec{v}
+        \end{equation*}
+        \item Using the above derivation,
+        \begin{equation*}
+            Q^n\left(\sum_{i=1}^m c_i \vec{v}_i\right) = \sum_{i=1}^m c_i \lambda_i^n \vec{v}_i.
+        \end{equation*}
+
+        \item
+            Assuming that $|\lambda_1| > |\lambda_i|$ for $i=2,\dots, m$,
+            prove that
+            \begin{equation*}
+                \lim_{n\to\infty} \frac{1}{\lambda_1^n}Q^n \left(\sum_{i=1}^m c_i\vec{v}_i \right) = c_1 \vec{v}_1
+            \end{equation*}
+        \begin{proof}
+            Using the limit properties,
+            \begin{equation*}
+                \begin{aligned}
+                    \lim_{n\to\infty} \frac{1}{\lambda_1^n}Q^n \left(\sum_{i=1}^m c_iv_i \right) &=   \lim_{n\to\infty} \left(\sum_{i=1}^m \frac{\lambda_i^n c_iv_i}{\lambda_1^n} \right).
+                \end{aligned}
+            \end{equation*}
+            Then we examine the sequence itself and show absolute convergence; that is in the absolute case
+            \begin{equation*}
+                \lim_{n\to\infty} \left(\sum_{i=1}^m \frac{|\lambda_i^n| c_iv_i}{|\lambda_1^n|} \right) = \sum_{i=1}^m \lim_{n\to\infty}\frac{|\lambda_i^n| c_iv_i}{|\lambda_1^n|}.
+            \end{equation*}
+        \\Since $|\lambda_i^n| \leq |\lambda_1^n|,$ we have that $b_i^n = |\lambda_i^n|/|\lambda_1^n| \leq 1$ for all $n$ and therefore $b_i^n \to 0, n \to \infty,$ when $i \neq 1.$ Otherwise, $b_1 = 1$ for all $n$ and we have
+        \begin{equation*}
+         \sum_{i=1}^m \lim_{n\to\infty}\frac{|\lambda_i^n| c_i\vec{v}_i}{|\lambda_1^n|} = c_1\vec{v}_1.
+        \end{equation*}
+        \end{proof}
+
+        \item Assuming that $\lambda_1$ is positive, prove that
+            \begin{equation*}
+                \lim_{n\to\infty} \frac{Q^n \left(\sum_{i=1}^m c_iv_i \right) }{\left\|Q^n \left(\sum_{i=1}^m c_iv_i \right)\right\|} = \frac{c_1 v_1}{\|c_1 v_1\|}
+            \end{equation*}
+        \begin{proof}
+            By the previous theorem
+            \begin{equation*}
+                \lim_{n\to\infty} \frac{Q^n \left(\sum_{i=1}^m c_iv_i \right) }{\left\|Q^n \left(\sum_{i=1}^m c_iv_i \right)\right\|} =
+                \lim_{n\to\infty} \frac{ \frac{1}{\lambda_1^n} Q^n \left(\sum_{i=1}^m c_iv_i \right) }{\left\| \frac{1}{\lambda_1^n} Q^n \left(\sum_{i=1}^m c_iv_i \right)\right\|}  = \frac{c_1 v_1}{\|c_1 v_1\|}.
+            \end{equation*}
+        \end{proof}
+        \item The top 5 are ORE, ALA, ARIZ MISS, UCLA. \\Then the fourteenth and the seventeenth are LSU and USC, respectively.
+    \end{menumerate}
+
+    \newpage
+    \item \textbf{Dynamics of Romeo and Juliet's Love Affair}
+    \begin{menumerate}
+        \item
+        \begin{equation*}
+            Av_1 = \begin{bmatrix}
+                a+b \\
+                c+d
+            \end{bmatrix} = (a+b)v_1.
+        \end{equation*}
+        Thus $(a+b)$ is an eigenvalue. To solve for the other eigenvalues we set the determinent zero.
+        \begin{equation*}
+            \begin{aligned}
+                \lambda^2 - (a+d)\lambda +ad  -bc = 0 \\
+                \lambda = \frac{a+d \pm \sqrt{(a+d)^2 - 4ad + bc}}{2} = a+b \\
+                2a + 2b = a+d \pm    \sqrt{(a+d)^2 - 4ad + bc}   \\
+                \implies (a+d)^2 - 4ad + bc = (\pm ( a -d + 2b ))^2 \\
+                \implies \lambda_2 = \frac{a+d -a + d - 2b}{2} = d -b.
+            \end{aligned}
+        \end{equation*}
+        Plugging in the eigenvalues we get
+        \begin{equation*}
+            v_2 = \begin{bmatrix}
+                -\frac{b}{c} \\ 1
+            \end{bmatrix}
+        \end{equation*}
+        For the new system the eigen pairs are $((1,1),1)$ and $((-1,1),0.5).$
+        \\\\All \emph{fixed points} are on the linear space with basis $(1,1).$
+        \\\\The reprasentative points are
+        \begin{equation*}
+            s[n] = 0.5^n s[0] \to 0
+        \end{equation*}
+        \\For the next scenario we know that $c_1 = 4$, $c_2 = 1.$ We have
+        \begin{equation*}
+            s[n] = 4v_1 + 0.5^nv_2 \to 4v_1 =
+            \begin{bmatrix}
+                4\\ 4
+            \end{bmatrix}
+        \end{equation*}
+        \end{menumerate}
+
+
+\end{menumerate}
+
+\end{document}
